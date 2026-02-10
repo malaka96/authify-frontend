@@ -6,7 +6,7 @@ const Menubar = () => {
   const navigation = useNavigate();
 
   return (
-    <nav className="flex items-center justify-between px-6 py-4 bg-[#000000e1] text-white">
+    <nav className="fixed top-0 left-0 w-full flex items-center justify-between px-6 py-4 bg-[#161414e1] text-white z-50 shadow-md">
       {/* Left side - Brand */}
       <div className="text-2xl font-bold text-red-500">
         Authify
