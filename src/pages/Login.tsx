@@ -5,12 +5,11 @@ const Login = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-black text-white px-6">
       <div className="w-full max-w-md bg-gray-900 rounded-lg shadow-lg p-8">
-        {/* Title */}
+
         <h2 className="text-3xl font-bold text-red-500 mb-6 text-center">
           Login to Authify
         </h2>
 
-        {/* Email Field */}
         <div className="mb-4">
           <label className="block text-gray-300 mb-2">Email</label>
           <input
@@ -20,9 +19,16 @@ const Login = () => {
           />
         </div>
 
-        {/* Password Field */}
         <div className="mb-6">
-          <label className="block text-gray-300 mb-2">Password</label>
+          <div className="flex items-center justify-between mb-2">
+            <label className="text-gray-300">Password</label>
+            <Link
+              to="/reset-password"
+              className="text-sm text-red-500 hover:underline"
+            >
+              Forgot Password?
+            </Link>
+          </div>
           <input
             type="password"
             placeholder="Enter your password"
@@ -30,13 +36,11 @@ const Login = () => {
           />
         </div>
 
-        {/* Login Button */}
         <button className="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md font-semibold transition duration-200">
           <FaSignInAlt />
           <span>Login</span>
         </button>
 
-        {/* Link to Create Account */}
         <p className="mt-6 text-center text-gray-400">
           Don’t have an account?{" "}
           <Link to="/create-account" className="text-red-500 hover:underline">
