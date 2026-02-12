@@ -4,6 +4,14 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
   const [isCreatedAccount, setIsCreatedAccount] = useState<boolean>(true);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement> ) =>{
+    e.preventDefault();
+  }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-black text-white px-6">
@@ -12,12 +20,16 @@ const Login = () => {
           {isCreatedAccount ? "Login to Authify" : "Create Account"}
         </h2>
 
-        {!isCreatedAccount ? (
+        <form onSubmit={onSubmitHandler}>
+          {!isCreatedAccount ? (
           <div className="mb-4">
             <label className="block text-gray-300 mb-2">Full Name</label>
             <input
               type="text"
+              id="fullName"
               placeholder="Enter your full name"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
               className="w-full px-4 py-2 rounded-md bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500"
             />
           </div>
@@ -27,7 +39,11 @@ const Login = () => {
           <label className="block text-gray-300 mb-2">Email</label>
           <input
             type="email"
+            id="email"
+            required
             placeholder="Enter your email"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
             className="w-full px-4 py-2 rounded-md bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500"
           />
         </div>
@@ -46,7 +62,11 @@ const Login = () => {
           </div>
           <input
             type="password"
+            id="password"
+            required
             placeholder="Enter your password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
             className="w-full px-4 py-2 rounded-md bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500"
           />
         </div>
@@ -71,7 +91,9 @@ const Login = () => {
           />
         </div> : null}
 
-        <button className="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md font-semibold transition duration-200">
+        <button
+        type="submit"
+         className="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md font-semibold transition duration-200">
           <FaSignInAlt />
           <span>{isCreatedAccount ? "Login" : "Create Account"}</span>
         </button>
@@ -102,6 +124,7 @@ const Login = () => {
             </Link>
           )}
         </p>
+        </form>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { AppContext } from "./AppContext";
+import { AppConstants } from "../utils/Constants";
 
 type AppContextProviderProps = {
     children : ReactNode;
@@ -7,8 +8,14 @@ type AppContextProviderProps = {
 
 export const AppContextProvider = ({children} : AppContextProviderProps) => {
 
-    const contextValue = {
+    const backendURL = AppConstants.API_BASE_URL;
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [userData, setUserData] = useState(false);
 
+    const contextValue = {
+        backendURL,
+        isLoggedIn, setIsLoggedIn,
+        userData, setUserData
     }
 
     return(

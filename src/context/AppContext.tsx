@@ -1,8 +1,11 @@
 import { createContext } from "react";
 
 type AppContextType = {
-    user? : string;
-    setUser? : (user: string) => void;
+    backendURL: string;
+    isLoggedIn: boolean;
+    setIsLoggedIn: (newState: boolean) => void;
+    userData: boolean;
+    setUserData: (newState: boolean) => void;
 }
 
 
