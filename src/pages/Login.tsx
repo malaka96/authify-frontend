@@ -3,7 +3,7 @@ import { FaSignInAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Login = () => {
-  const [isCreatedAccount, setIsCreatedAccount] = useState<boolean>(false);
+  const [isCreatedAccount, setIsCreatedAccount] = useState<boolean>(true);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-black text-white px-6">
@@ -73,7 +73,7 @@ const Login = () => {
 
         <button className="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md font-semibold transition duration-200">
           <FaSignInAlt />
-          <span>Login</span>
+          <span>{isCreatedAccount ? "Login" : "Create Account"}</span>
         </button>
 
         <p className="mt-6 text-center text-gray-400">
