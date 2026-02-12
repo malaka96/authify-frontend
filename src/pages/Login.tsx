@@ -38,6 +38,18 @@ const Login = () => {
         }
       } else {
         // login API
+        const response = await axios.post(`${backendURL}/login`, {
+          email,
+          password
+        });
+
+        if(response.status === 200){
+          navigate("/");
+          toast.success("Logged into account");
+        }else{
+          toast.error("Email or password incorrect");
+        }
+
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
