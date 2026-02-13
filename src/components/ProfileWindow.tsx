@@ -62,8 +62,27 @@ const ProfileWindow = ({ onClose }: ProfileWindowProps) => {
       className="absolute right-0 mt-2 w-64 bg-[#1e1e1e] rounded-lg shadow-lg border border-gray-700 p-4 z-50"
     >
       <div className="mb-3">
-        <p className="font-semibold text-white">{userData.name}</p>
-        <p className="text-sm text-gray-400">{userData.email}</p>
+        {/* Name + Verified Chip */}
+        <div className="flex items-center justify-between">
+          <p className="font-semibold text-white">{userData.name}</p>
+
+          <button
+            onClick={() =>{
+                if(!userData.isAccountVarified){
+                    navigate("/email-verify");
+                }
+            }}
+            className={`text-[8px] px-2 py-1 rounded-full cursor-pointer font-medium ${
+              userData.isAccountVarified
+                ? "bg-green-600/20 text-green-400 border border-green-500"
+                : "bg-red-600/20 text-red-400 border border-red-500"
+            }`}
+          >
+            {userData.isAccountVarified ? "Verified" : "Not Verified"}
+          </button>
+        </div>
+
+        <p className="text-sm text-gray-400 mt-1">{userData.email}</p>
       </div>
 
       <hr className="border-gray-700 mb-3" />
