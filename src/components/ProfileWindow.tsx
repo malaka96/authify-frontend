@@ -1,26 +1,40 @@
 import { useContext, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 type ProfileWindowProps = {
   onClose: () => void;
 };
 
 const ProfileWindow = ({ onClose }: ProfileWindowProps) => {
-  const { userData, setUserData, setIsLoggedIn } = useContext(AppContext)!;
+  const { userData, setUserData, setIsLoggedIn, backendURL } =
+    useContext(AppContext)!;
   const navigate = useNavigate();
   const profileRef = useRef<HTMLDivElement>(null);
 
-  const handleLogout = () => {
-    // Clear auth state
-    setUserData(null);
-    setIsLoggedIn(false);
+  const handleLogout = async () => {
+    try {
+      const response = await axios.get(`${backendURL}/logout`);
+      if (response.status === 200) {
+        // Clear auth state
+        setUserData(null);
+        setIsLoggedIn(false);
 
-    // optional: remove token if stored
-    // localStorage.removeItem("token");
+        // optional: remove token if stored
+        // localStorage.removeItem("token");
 
-    onClose();
-    navigate("/login");
+        onClose();
+        navigate("/login");
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data?.message || "Request failed");
+      } else {
+        toast.error("Unexpected error occurred");
+      }
+    }
   };
 
   useEffect(() => {
@@ -44,8 +58,9 @@ const ProfileWindow = ({ onClose }: ProfileWindowProps) => {
 
   return (
     <div
-    ref={profileRef}
-     className="absolute right-0 mt-2 w-64 bg-[#1e1e1e] rounded-lg shadow-lg border border-gray-700 p-4 z-50">
+      ref={profileRef}
+      className="absolute right-0 mt-2 w-64 bg-[#1e1e1e] rounded-lg shadow-lg border border-gray-700 p-4 z-50"
+    >
       <div className="mb-3">
         <p className="font-semibold text-white">{userData.name}</p>
         <p className="text-sm text-gray-400">{userData.email}</p>
