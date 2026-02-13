@@ -12,7 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { backendURL, getUserData } = useContext(AppContext)!;
+  const { backendURL, getUserData, setIsLoggedIn } = useContext(AppContext)!;
   const navigate = useNavigate();
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -44,6 +44,7 @@ const Login = () => {
         });
 
         if(response.status === 200){
+          setIsLoggedIn(true);
           navigate("/");
           getUserData();
           toast.success("Logged into account");
