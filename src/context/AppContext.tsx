@@ -13,7 +13,7 @@ type AppContextType = {
     isLoggedIn: boolean;
     setIsLoggedIn: (newState: boolean) => void;
     userData: User | null;
-    setUserData: (value: User) => void;
+    setUserData: React.Dispatch<React.SetStateAction<User | null>>;
     getUserData: () => void;
 }
 
