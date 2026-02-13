@@ -1,15 +1,23 @@
 import { FaArrowRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Menubar from "../components/Menubar";
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
 
 const Home = () => {
 
   const navigation = useNavigate();
+  const {userData} = useContext(AppContext)!;
 
   return (
     <>
     <Menubar/>
     <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white px-6">
+
+      <p className="text-lg text-gray-300 mb-1 text-center max-w-xl">
+        Yello, {userData ? userData!.name : "Developer"}
+      </p>
+
       {/* Title */}
       <h1 className="text-5xl font-extrabold text-red-500 mb-4 text-center">
         Welcome to Authify

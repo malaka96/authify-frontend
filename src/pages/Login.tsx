@@ -12,7 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { backendURL } = useContext(AppContext)!;
+  const { backendURL, getUserData } = useContext(AppContext)!;
   const navigate = useNavigate();
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -45,6 +45,7 @@ const Login = () => {
 
         if(response.status === 200){
           navigate("/");
+          getUserData();
           toast.success("Logged into account");
         }else{
           toast.error("Email or password incorrect");
@@ -143,6 +144,7 @@ const Login = () => {
 
           <button
             type="submit"
+            disabled={loading}
             className="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md font-semibold transition duration-200"
           >
             <FaSignInAlt />
