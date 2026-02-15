@@ -11,10 +11,12 @@ export type User = {
 type AppContextType = {
     backendURL: string;
     isLoggedIn: boolean;
+    authLoading: boolean;
     setIsLoggedIn: (newState: boolean) => void;
     userData: User | null;
     setUserData: React.Dispatch<React.SetStateAction<User | null>>;
     getUserData: () => void;
+    setAuthLoading: (value: boolean) => void;
 }
 
 

@@ -14,6 +14,7 @@ export const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const backendURL = AppConstants.API_BASE_URL;
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState<User | null>(null);
+  const [authLoading, setAuthLoading] = useState(true);
 
   
 
@@ -48,6 +49,8 @@ export const AppContextProvider = ({ children }: AppContextProviderProps) => {
       } catch {
         setIsLoggedIn(false);
         setUserData(null);
+      } finally{
+        setAuthLoading(false);
       }
     };
 
@@ -57,10 +60,12 @@ export const AppContextProvider = ({ children }: AppContextProviderProps) => {
   const contextValue = {
     backendURL,
     isLoggedIn,
+    authLoading,
     setIsLoggedIn,
     userData,
     setUserData,
     getUserData,
+    setAuthLoading
   };
 
   return (
