@@ -3,11 +3,16 @@ import { useNavigate } from "react-router-dom";
 import Menubar from "../components/Menubar";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
+import LoadingScreen from "../components/LoadingScreen";
 
 const Home = () => {
 
   const navigation = useNavigate();
-  const {userData} = useContext(AppContext)!;
+  const {userData, authLoading} = useContext(AppContext)!;
+
+  if(authLoading){
+    return <LoadingScreen />;
+  }
 
   return (
     <>
