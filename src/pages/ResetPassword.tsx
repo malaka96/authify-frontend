@@ -3,6 +3,8 @@ import { useContext, useState } from "react";
 import { FaEnvelope, FaKey, FaCheckCircle } from "react-icons/fa";
 import { AppContext } from "../context/AppContext";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 
 const ResetPassword = () => {
 
@@ -13,6 +15,7 @@ const ResetPassword = () => {
   const [isResetting, setIsResetting] = useState(false);
 
   const {backendURL} = useContext(AppContext)!;
+  const navigate = useNavigate();
 
   const sendResetOTP = async () =>{
     setIsSendingOTP(true);
@@ -31,6 +34,31 @@ const ResetPassword = () => {
       }
     }finally{
       setIsSendingOTP(false);
+    }
+  }
+
+  const resetPassword = async () => {
+    setIsResetting(true);
+    try{
+      const response = await axios.post(`${backendURL}/reset-password`, {
+        email:email,
+        otp:OTP,
+        newPassword:newPassword
+      });
+      if(response.status === 200){
+        toast.success("Password reset successfully");
+        navigate("/");
+      }else{
+        toast.success("Unable to reset password");
+      }
+    }catch(error){
+      if(axios.isAxiosError(error)){
+        toast.error(error.response?.data?.message || "Request failed");
+      }else{
+        toast.error("Unexpected error occurred");
+      }
+    }finally{
+      setIsResetting(false);
     }
   }
 
@@ -95,6 +123,7 @@ const ResetPassword = () => {
         <button
           type="button"
           disabled={isResetting}
+          onClick={() =>{resetPassword();}}
           className="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md font-semibold transition duration-200"
         >
           <FaCheckCircle />
